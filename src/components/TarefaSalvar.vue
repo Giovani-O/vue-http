@@ -18,7 +18,7 @@
         <div class="col-sm-2" v-if="tarefa">
           <div class="form-group">
             <label>Tarefa concluída?</label>
-            <button 
+            <button
               type="button"
               class="btn btn-sm d-block"
               :class="classeBotao"
@@ -55,33 +55,31 @@ export default {
   computed: {
     classeBotao() {
       return this.tarefa && this.tarefaLocal.concluido
-        ? 'btn-success'
-        : 'btn-secondary'
+        ? "btn-success"
+        : "btn-secondary";
     },
     classeColuna() {
-      return this.tarefa 
-				? "col-sm-10" 
-				: "col-sm-12";
+      return this.tarefa ? "col-sm-10" : "col-sm-12";
     },
   },
   watch: {
-    tarefa(){
-      this.tarefaLocal = Object.assign({}, this.tarefa)
-    }
+    tarefa() {
+      this.tarefaLocal = Object.assign({}, this.tarefa);
+    },
   },
   methods: {
     salvar() {
-      const operacao = !this.tarefa ? 'criar' : 'editar'
-      this.$emit(operacao, this.tarefaLocal)
-      this.tarefaLocal = { titulo: "", concluido: false }
-    }
-  }
+      const operacao = !this.tarefa ? "criar" : "editar";
+      this.$emit(operacao, this.tarefaLocal);
+      this.tarefaLocal = { titulo: "", concluido: false };
+    },
+  },
 };
 </script>
 
 <style scoped>
-	.btn-primary {
-		background-color: rgb(108, 39, 187) !important;
-		border-color: rgb(83, 30, 143) !important;
-	}
+.btn-primary {
+  background-color: rgb(108, 39, 187) !important;
+  border-color: rgb(83, 30, 143) !important;
+}
 </style>
