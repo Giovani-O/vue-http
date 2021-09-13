@@ -11,9 +11,9 @@
       "concluido": true
     },
     {
-      "id": 3,
       "titulo": "Aprender Axios",
-      "concluido": false
+      "concluido": true,
+      "id": 3
     },
     {
       "titulo": "Aprender Vuex",
