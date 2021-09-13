@@ -65,12 +65,12 @@ export default {
     },
   },
   watch: {
-    tarefa(tarefaNova, tarefaAntiga){
+    tarefa(){
       this.tarefaLocal = Object.assign({}, this.tarefa)
     }
   },
   methods: {
-    salvar(event) {
+    salvar() {
       const operacao = !this.tarefa ? 'criar' : 'editar'
       this.$emit(operacao, this.tarefaLocal)
       this.tarefaLocal = { titulo: "", concluido: false }
