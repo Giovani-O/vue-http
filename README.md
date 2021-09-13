@@ -21,7 +21,6 @@ yarn lint
 ```
 
 ### Run JSON Server
-Access the db directory and use:
 ```
 npm start
 ```
