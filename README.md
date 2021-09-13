@@ -1,4 +1,4 @@
-# vue-http
+# vue-http (Work in progress)
 
 ## Project setup
 ```
