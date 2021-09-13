@@ -20,5 +20,11 @@ yarn build
 yarn lint
 ```
 
+### Run JSON Server
+Access the db directory and use:
+```
+npm start
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
