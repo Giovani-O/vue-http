@@ -17,7 +17,7 @@
 
     <ul class="list-group" v-if="tarefas.length > 0">
       <TarefasListaItem
-        v-for="tarefa in tarefas"
+        v-for="tarefa in tarefasOrdenadas"
         :key="tarefa.id"
         :tarefa="tarefa"
         @editar="selecionarTarefaParaEdicao"
@@ -55,6 +55,20 @@ export default {
       exibirFormulario: false,
       tarefaSelecionada: undefined,
     };
+  },
+  computed: {
+    tarefasOrdenadas() {
+      return this.tarefas.slice().sort((tarefa1, tarefa2) => {
+        if (tarefa1.concluido === tarefa2.concluido){
+          return tarefa1.titulo < tarefa2.titulo
+            ? -1
+            : tarefa1.titulo > tarefa2.titulo
+              ? 1
+              : 0
+        }
+        return tarefa1.concluido - tarefa2.concluido
+      })
+    }
   },
   created() {
     this.carregarTarefas();
