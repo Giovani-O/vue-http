@@ -24,6 +24,7 @@ yarn lint
 ```
 
 ### Run JSON Server
+Dentro do diretório db:
 ```
 npm start
 ```
