@@ -80,10 +80,20 @@ export default {
       });
     },
     criarTarefa(tarefa) {
-      axios.post(`${config.apiURL}/tarefas`, tarefa).then((response) => {
+      /* axios.post(`${config.apiURL}/tarefas`, tarefa).then((response) => {
         this.tarefas.push(response.data);
         this.resetar();
-      });
+      }); */
+
+      axios.request({
+        method: 'post',
+        baseURL: config.apiURL,
+        url: '/tarefas',
+        data: tarefa
+      }).then((response) => {
+        this.tarefas.push(response.data);
+        this.resetar();
+      })
     },
     deletarTarefa(tarefa) {
       const confirmar = window.confirm(
