@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <ul class="list-group" v-if="tarefas.length > 0">
+    <ul class="list-group" v-if="tarefasOrdenadas.length > 0">
       <TarefasListaItem
         v-for="tarefa in tarefasOrdenadas"
         :key="tarefa.id"
@@ -26,7 +26,11 @@
       />
     </ul>
 
-    <p v-else>Nenhuma tarefa criada.</p>
+    <p v-else-if="!mensagemErro">Nenhuma tarefa criada.</p>
+
+    <div class="alert alert-danger" v-else>
+      {{ mensagemErro }}
+    </div>
 
     <TarefaSalvar
       v-if="exibirFormulario"
@@ -54,6 +58,7 @@ export default {
       tarefas: [],
       exibirFormulario: false,
       tarefaSelecionada: undefined,
+      mensagemErro: undefined,
     };
   },
   computed: {
@@ -77,23 +82,42 @@ export default {
     carregarTarefas() {
       axios.get(`${config.apiURL}/tarefas`).then((response) => {
         this.tarefas = response.data;
+      }, error => {
+        console.log('Erro capturado no then: ', error)
+        return Promise.reject(error)
+      }).catch(error => {
+        console.log('Erro capturado no catch: ', error)
+        if (error.response) {
+          this.mensagemErro = 
+            `O Servidor retornou um erro ${error.message} 
+            ${error.response.statusText}`
+          console.log('Erro [resposta]: ', error.response)
+        } else if (error.request){
+          this.mensagemErro = 
+            `Erro ao tentar comunicar com o servidor: ${error.message}`
+          console.log(`Erro [requisição]: `, error.request)
+        } else {
+          this.mensagemErro = `Erro ao fazer requisição ao servidor: ${error.message}`
+        }
+      }).then(() => {
+        console.log('Sempre executado!')
       });
     },
     criarTarefa(tarefa) {
-      /* axios.post(`${config.apiURL}/tarefas`, tarefa).then((response) => {
+      axios.post(`${config.apiURL}/tarefas`, tarefa).then((response) => {
         this.tarefas.push(response.data);
         this.resetar();
-      }); */
+      });
 
-      axios.request({
-        method: 'post',
-        baseURL: config.apiURL,
-        url: '/tarefas',
-        data: tarefa
-      }).then((response) => {
-        this.tarefas.push(response.data);
-        this.resetar();
-      })
+      // axios.request({
+      //   method: 'post',
+      //   baseURL: config.apiURL,
+      //   url: '/tarefas',
+      //   data: tarefa
+      // }).then((response) => {
+      //   this.tarefas.push(response.data);
+      //   this.resetar();
+      // })
     },
     deletarTarefa(tarefa) {
       const confirmar = window.confirm(
