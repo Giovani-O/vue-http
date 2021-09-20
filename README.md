@@ -1,4 +1,4 @@
-# vue-http (Work in progress)
+# vue-http
 
 Projeto desenvolvido no curso "Vue JS - Guia Completo (Vue CLI, Vue Router, Vuex e GraphQL)" disponível na Udemy.com .
 O projeto se trata de um gerenciador de tarefas, onde é feito o crud utilizando o Axios e as requisições GET, POST, PUT e DELETE.
