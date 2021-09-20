@@ -99,7 +99,7 @@ export default {
           this.mensagemErro = `Erro ao fazer requisição ao servidor: ${error.message}`
         }
       }).then(() => {
-        console.log('Sempre executado!')
+        console.log('Executado!')
       });
     },
     criarTarefa(tarefa) {
@@ -118,18 +118,29 @@ export default {
       //   this.resetar();
       // })
     },
-    deletarTarefa(tarefa) {
+    async deletarTarefa(tarefa) {
       const confirmar = window.confirm(
         `Deseja excluir a tarefa "${tarefa.titulo}"?`
       );
       if (confirmar) {
-        axios
-          .delete(`/tarefas/${tarefa.id}`)
-          .then((response) => {
-            console.log(`DELETE /tarefas/${tarefa.id}`, response);
-            const indice = this.tarefas.findIndex((t) => t.id === tarefa.id);
-            this.tarefas.splice(indice, 1);
-          });
+        try {
+          const response = await axios.delete(`/tarefas/${tarefa.id}`)
+          console.log(`DELETE /tarefas/${tarefa.id}`, response);
+          const indice = this.tarefas.findIndex((t) => t.id === tarefa.id);
+          this.tarefas.splice(indice, 1);
+        } catch(error) {
+          console.log('Erro ao excluir tarefa: ', error)
+        } finally {
+          console.log('Executado!')
+        }
+
+        // axios
+        //   .delete(`/tarefas/${tarefa.id}`)
+        //   .then((response) => {
+        //     console.log(`DELETE /tarefas/${tarefa.id}`, response);
+        //     const indice = this.tarefas.findIndex((t) => t.id === tarefa.id);
+        //     this.tarefas.splice(indice, 1);
+        //   });
       }
     },
     editarTarefa(tarefa) {
