@@ -42,11 +42,10 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from './../axios';
 
-import config from "./../config/config.js";
-import TarefaSalvar from "./TarefaSalvar.vue";
-import TarefasListaItem from "./TarefasListaItem.vue";
+import TarefaSalvar from './TarefaSalvar.vue';
+import TarefasListaItem from './TarefasListaItem.vue';
 
 export default {
   components: {
@@ -80,7 +79,7 @@ export default {
   },
   methods: {
     carregarTarefas() {
-      axios.get(`${config.apiURL}/tarefas`).then((response) => {
+      axios.get(`/tarefas`).then((response) => {
         this.tarefas = response.data;
       }, error => {
         console.log('Erro capturado no then: ', error)
@@ -104,7 +103,7 @@ export default {
       });
     },
     criarTarefa(tarefa) {
-      axios.post(`${config.apiURL}/tarefas`, tarefa).then((response) => {
+      axios.post(`/tarefas`, tarefa).then((response) => {
         this.tarefas.push(response.data);
         this.resetar();
       });
@@ -125,7 +124,7 @@ export default {
       );
       if (confirmar) {
         axios
-          .delete(`${config.apiURL}/tarefas/${tarefa.id}`)
+          .delete(`/tarefas/${tarefa.id}`)
           .then((response) => {
             console.log(`DELETE /tarefas/${tarefa.id}`, response);
             const indice = this.tarefas.findIndex((t) => t.id === tarefa.id);
@@ -135,7 +134,7 @@ export default {
     },
     editarTarefa(tarefa) {
       axios
-        .put(`${config.apiURL}/tarefas/${tarefa.id}`, tarefa)
+        .put(`/tarefas/${tarefa.id}`, tarefa)
         .then((response) => {
           console.log(`PUT /tarefas/${tarefa.id}`, response);
           const indice = this.tarefas.findIndex((t) => t.id === tarefa.id);
